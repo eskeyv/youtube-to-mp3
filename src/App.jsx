@@ -8,28 +8,30 @@ const App = () => {
 
   const handleButton = (e) => {
     e.preventDefault()
-    const youtubeId = youtubes(inputUrl.current.value)
+    // const youtubeId = youtubes(inputUrl.current)
+    const tiktokURL = inputUrl.current.value
+    
 
     const option = {
-      method: 'get',
-      url: 'https://youtube-mp36.p.rapidapi.com/dl',
+      method: 'GET',
+      url: 'https://tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com/index',
       headers: {
         'X-RapidAPI-Key': import.meta.env.VITE_RAPID_API_KEY,
-        'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
+        'X-RapidAPI-Host': 'tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com'
       },
       params: {
-        id: youtubeId
+        url: tiktokURL
       }
     }
 
     axios(option)
-     .then(res => setResult(res.data.link))
+     .then(res => setResult(res.data.video))
      .catch(err => console.log(err))
     inputUrl.current.value = ''
   }
   
   return (
-    <div className="max-w-5xl mx-auto p-5">
+    <div className="max-w-5xl p-5 mx-auto">
       <div className="flex items-center justify-between">
         <div className="invisible"></div>
         <div>
@@ -48,8 +50,8 @@ const App = () => {
         </div>
       </div>
       <section className="flex flex-col items-center mt-44">
-        <h1 className="text-white font-semibold text-4xl subpixel-antialiased">Youtube to MP3</h1>
-        <p className="text-gray-400 text-center text-xl mt-2">Convert Youtube videos into MP3s in just a few seconds</p>
+        <h1 className="text-4xl subpixel-antialiased font-semibold text-white">Youtube to MP3</h1>
+        <p className="mt-2 text-xl text-center text-gray-400">Convert Youtube videos into MP3s in just a few seconds</p>
         <form onSubmit={handleButton} className="mt-4 text-center">
           <div className="relative w-80 md:w-96">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -63,7 +65,7 @@ const App = () => {
             Convert
           </button>
         </form>
-      {result ? <a href={result} target="_blank" rel="noreferrer" className="text-green-500 bg-gray-700 hover:bg-gray-600 border border-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-600 font-medium rounded-full text-sm px-14 py-2.5 text-center inline-flex items-center mt-4"> Click to download </a> : ''}
+      {result ? <a href={result} target="_blank" download={video} rel="noreferrer" className="text-green-500 bg-gray-700 hover:bg-gray-600 border border-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-600 font-medium rounded-full text-sm px-14 py-2.5 text-center inline-flex items-center mt-4">Test</a> : ''}
       </section>
     </div>
   )
